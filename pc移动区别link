@@ -1,0 +1,39 @@
+<script>
+        var inner = document.head.innerHTML
+        var key = IsPC()
+        window.onresize = function () {
+            change()
+        }
+        //判断是否为pc
+        function IsPC() {
+            var userAgentInfo = navigator.userAgent;
+            var Agents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPod"];
+            var flag = true;
+            for (var v = 0; v < Agents.length; v++) {
+                if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (window.screen.width >= 768) {
+                flag = true;
+            }
+            return flag;
+        }
+        function change(){
+            if(key!=IsPC()){
+                key=!key
+                fit()
+            }
+        }
+        function fit() {
+            if (IsPC()) {
+                document.head.innerHTML = inner + `<link rel='stylesheet' media="screen and (max-width:767px)" href='./styles/app/min_pc.css'>
+                                           <link rel='stylesheet' media="screen and (min-width:768px)" href='./styles/app/pc.css'>`
+            } else {
+                document.head.innerHTML = inner + `<link rel="stylesheet" href="./styles/app/phone.css">`
+            }
+        }
+        fit()
+        // media="screen and (-webkit-min-device-pixel-ratio: 2) and (-webkit-max-device-pixel-ratio: 3)" 
+    </script>
